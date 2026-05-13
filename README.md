@@ -71,3 +71,57 @@ export default defineConfig([
   },
 ])
 ```
+
+
+-- WARNING: This schema is for context only and is not meant to be run.
+-- Table order and constraints may not be valid for execution.
+
+CREATE TABLE public.admin (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  email text NOT NULL UNIQUE,
+  firstname text NOT NULL,
+  lastname text NOT NULL,
+  create_date timestamp with time zone NOT NULL DEFAULT now(),
+  status boolean NOT NULL DEFAULT true,
+  CONSTRAINT admin_pkey PRIMARY KEY (id),
+  CONSTRAINT admin_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id)
+);
+CREATE TABLE public.configs (
+  id bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  key text NOT NULL UNIQUE,
+  value boolean NOT NULL DEFAULT false,
+  description text,
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT configs_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.coupons (
+  id bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  user_id uuid NOT NULL,
+  status_show boolean NOT NULL DEFAULT true,
+  status boolean NOT NULL DEFAULT true,
+  create_by text NOT NULL,
+  create_date timestamp with time zone NOT NULL DEFAULT now(),
+  show_coupon_date timestamp with time zone,
+  CONSTRAINT coupons_pkey PRIMARY KEY (id),
+  CONSTRAINT fk_coupon_user FOREIGN KEY (user_id) REFERENCES public.users(id)
+);
+CREATE TABLE public.users (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  first_name text NOT NULL,
+  last_name text NOT NULL,
+  email text NOT NULL,
+  position text,
+  reg_type text DEFAULT 'FORM'::text,
+  user_type text NOT NULL,
+  department text NOT NULL,
+  create_by text NOT NULL,
+  create_date timestamp with time zone NOT NULL DEFAULT now(),
+  check_in_status boolean NOT NULL DEFAULT false,
+  check_in_date timestamp with time zone,
+  check_in_by text,
+  show_coupon_status boolean NOT NULL DEFAULT false,
+  show_coupon_date timestamp with time zone,
+  show_coupon_by text,
+  CONSTRAINT users_pkey PRIMARY KEY (id),
+  CONSTRAINT fk_users_auth FOREIGN KEY (id) REFERENCES auth.users(id)
+);
