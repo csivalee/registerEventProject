@@ -12,7 +12,7 @@ interface MetricsProps {
   pendingUsers?: number;
 }
 
-export default function EcommerceMetrics({
+export default function MetricItem({
   totalUsers = 0,
   checkedInUsers = 0,
   pendingUsers = 0,

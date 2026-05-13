@@ -22,7 +22,7 @@ interface UserRow {
   check_in_by?: string;
 }
 
-export default function RecentOrders() {
+export default function UserTable() {
   const { data: users = [], isLoading, isError } = useGetUsersQuery();
   const [checkIn] = useCheckInUserMutation();
   const [adminName, setAdminName] = useState("Admin");

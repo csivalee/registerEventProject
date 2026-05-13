@@ -1,6 +1,6 @@
-import EcommerceMetrics from "../../components/ecommerce/EcommerceMetrics";
-import RecentOrders from "../../components/ecommerce/RecentOrders";
-import PageMeta from "../../components/common/PageMeta";
+import MetricItem from "../components/dashboard/MetricItem";
+import UserTable from "../components/dashboard/UserTable";
+import PageMeta from "../components/common/PageMeta";
 
 export default function Home() {
   return (
@@ -11,11 +11,11 @@ export default function Home() {
       />
       <div className="grid grid-cols-12 gap-4 md:gap-6">
         <div className="col-span-12">
-          <EcommerceMetrics />
+          <MetricItem />
         </div>
 
         <div className="col-span-12">
-          <RecentOrders />
+          <UserTable />
         </div>
       </div>
     </>
